@@ -30,7 +30,7 @@ public class MapTestRunner {
     private static final boolean BILLION_TEST = false;
 
     private static final int START_SIZE = BILLION_TEST ? 1000 * 1000 * 1000 : 10 * 1000;
-    private static final int TOTAL_SIZE = BILLION_TEST ? 1000 * 1000 * 1000 : 100 * 1000 * 1000;
+    private static final int TOTAL_SIZE = BILLION_TEST ? 1000 * 1000 * 1000 : 10 * 1000 * 1000;//100 * 1000 * 1000;
     private final static int[] MAP_SIZES;
 
     static {
@@ -104,8 +104,10 @@ public class MapTestRunner {
     {
         final LinkedHashMap<String, String> res = new LinkedHashMap<>(3);
         res.put( "get", runTestSet( "get" ) );
+/*
         res.put( "put", runTestSet( "put" ) );
         res.put( "remove", runTestSet( "remove" ) );
+*/
 
         for ( final Map.Entry<String, String> entry : res.entrySet() )
         {
@@ -143,9 +145,9 @@ public class MapTestRunner {
                         .forks(1)
                         .mode(Mode.SingleShotTime)
                         .warmupBatchSize(TOTAL_SIZE / mapSize)
-                        .warmupIterations(10)
+                        .warmupIterations(0)//10
                         .measurementBatchSize(TOTAL_SIZE / mapSize)
-                        .measurementIterations(8)
+                        .measurementIterations(1)//8
                         .jvmArgsAppend("-Xmx30G")
                         .param("m_mapSize", Integer.toString(mapSize))
                         .param("m_className", testClass.getCanonicalName())
